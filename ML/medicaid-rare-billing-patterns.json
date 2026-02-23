@@ -1,0 +1,59 @@
+{
+  "description": "Rare pattern detection for Medicaid billing — surfaces unusual provider-procedure combinations, geographic anomalies, and rare billing entity pairings",
+  "analysis_config": {
+    "bucket_span": "30d",
+    "detectors": [
+      {
+        "detector_description": "Rare HCPCS code for this taxonomy group",
+        "function": "rare",
+        "by_field_name": "HCPCS_CODE",
+        "partition_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "detector_index": 0
+      },
+      {
+        "detector_description": "Rare billing/servicing NPI pairing",
+        "function": "rare",
+        "by_field_name": "SERVICING_PROVIDER_NPI_NUM",
+        "partition_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 1
+      },
+      {
+        "detector_description": "Rare provider in this state (out-of-state billing)",
+        "function": "rare",
+        "by_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "partition_field_name": "Provider_Business_Practice_Location_Address_State_Name",
+        "detector_index": 2
+      },
+      {
+        "detector_description": "Freq-rare: infrequently appearing billing provider",
+        "function": "freq_rare",
+        "by_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "over_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "detector_index": 3
+      }
+    ],
+    "influencers": [
+      "BILLING_PROVIDER_NPI_NUM",
+      "SERVICING_PROVIDER_NPI_NUM",
+      "HCPCS_CODE",
+      "Healthcare_Provider_Taxonomy_Code_1",
+      "Provider_Business_Practice_Location_Address_State_Name"
+    ]
+  },
+  "analysis_limits": {
+    "model_memory_limit": "256mb"
+  },
+  "data_description": {
+    "time_field": "CLAIM_FROM_MONTH",
+    "time_format": "epoch_ms"
+  },
+  "model_plot_config": {
+    "enabled": false
+  },
+  "custom_settings": {
+    "job_tags": {
+      "workshop": "medicaid-fraud",
+      "module": "rare-patterns"
+    }
+  }
+}
