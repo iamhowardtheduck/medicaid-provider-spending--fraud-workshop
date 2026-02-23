@@ -1,0 +1,51 @@
+{
+  "job_id": "medicaid-advanced-peer-behavioral-profiling",
+  "indices": [
+    "medicaid-fraud-enriched"
+  ],
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "TOTAL_CLAIMS": {
+              "gt": 0
+            }
+          }
+        },
+        {
+          "range": {
+            "TOTAL_PAID": {
+              "gt": 5000
+            }
+          }
+        },
+        {
+          "exists": {
+            "field": "Healthcare_Provider_Taxonomy_Code_1"
+          }
+        },
+        {
+          "exists": {
+            "field": "BILLING_PROVIDER_NPI_NUM"
+          }
+        }
+      ]
+    }
+  },
+  "runtime_mappings": {
+    "paid_per_claim": {
+      "type": "double",
+      "script": {
+        "source": "if (doc['TOTAL_CLAIMS'].size() > 0 && doc['TOTAL_CLAIMS'].value > 0) { emit(doc['TOTAL_PAID'].value / doc['TOTAL_CLAIMS'].value) } else { emit(0) }"
+      }
+    }
+  },
+  "scroll_size": 1000,
+  "chunking_config": {
+    "mode": "auto"
+  },
+  "delayed_data_check_config": {
+    "enabled": true
+  }
+}
