@@ -1,0 +1,17 @@
+{
+  "job_id": "medicaid-rare-billing-patterns",
+  "indices": ["medicaid-fraud-enriched"],
+  "query": {
+    "bool": {
+      "filter": [
+        { "exists": { "field": "HCPCS_CODE" } },
+        { "exists": { "field": "Healthcare_Provider_Taxonomy_Code_1" } },
+        { "exists": { "field": "BILLING_PROVIDER_NPI_NUM" } }
+      ]
+    }
+  },
+  "scroll_size": 1000,
+  "chunking_config": {
+    "mode": "auto"
+  }
+}
