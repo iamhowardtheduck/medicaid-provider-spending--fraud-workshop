@@ -1,7 +1,7 @@
 {
   "job_id": "medicaid-advanced-peer-behavioral-profiling",
   "indices": [
-    "medicaid-fraud-enriched"
+    "fraud-medicaid-spending"
   ],
   "query": {
     "bool": {
