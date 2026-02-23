@@ -1,0 +1,17 @@
+{
+  "job_id": "medicaid-provider-population-analysis",
+  "indices": ["medicaid-fraud-enriched"],
+  "query": {
+    "bool": {
+      "filter": [
+        { "range": { "TOTAL_CLAIMS": { "gt": 0 } } },
+        { "range": { "TOTAL_PAID": { "gt": 0 } } },
+        { "exists": { "field": "BILLING_PROVIDER_NPI_NUM" } }
+      ]
+    }
+  },
+  "scroll_size": 1000,
+  "chunking_config": {
+    "mode": "auto"
+  }
+}
