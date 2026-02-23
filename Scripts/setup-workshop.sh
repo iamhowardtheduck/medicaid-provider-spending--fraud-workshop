@@ -58,3 +58,10 @@ curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-rare-billing-
 curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-provider-population-analysis" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/datafeed-medicaid-provider-population-analysis.json
 curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-are-billing-patterns" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/datafeed-medicaid-rare-billing-patterns.json
 curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-advanced-peer-behavioral-profiling" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/datafeed-medicaid-advanced-peer-behavioral-profiling.json
+
+clear
+
+echo
+echo
+echo
+echo "You are now ready to begin the workshop."
