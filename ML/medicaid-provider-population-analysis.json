@@ -1,0 +1,59 @@
+{
+  "description": "Population analysis of Medicaid provider billing behavior — detects outliers in claims volume, payment totals, and beneficiary ratios across all providers",
+  "analysis_config": {
+    "bucket_span": "30d",
+    "detectors": [
+      {
+        "detector_description": "High total payments per provider per month",
+        "function": "high_sum",
+        "field_name": "TOTAL_PAID",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 0
+      },
+      {
+        "detector_description": "High claim count per provider per month",
+        "function": "high_sum",
+        "field_name": "TOTAL_CLAIMS",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 1
+      },
+      {
+        "detector_description": "Unusual beneficiary count per provider per month",
+        "function": "high_sum",
+        "field_name": "TOTAL_UNIQUE_BENEFICIARIES",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 2
+      },
+      {
+        "detector_description": "High payment-to-beneficiary ratio (upcoding signal)",
+        "function": "high_mean",
+        "field_name": "TOTAL_PAID",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 3
+      }
+    ],
+    "influencers": [
+      "BILLING_PROVIDER_NPI_NUM",
+      "Healthcare_Provider_Taxonomy_Code_1",
+      "Provider_Business_Practice_Location_Address_State_Name",
+      "HCPCS_CODE"
+    ]
+  },
+  "analysis_limits": {
+    "model_memory_limit": "512mb"
+  },
+  "data_description": {
+    "time_field": "CLAIM_FROM_MONTH",
+    "time_format": "epoch_ms"
+  },
+  "model_plot_config": {
+    "enabled": true,
+    "annotations_enabled": true
+  },
+  "custom_settings": {
+    "job_tags": {
+      "workshop": "medicaid-fraud",
+      "module": "population-analysis"
+    }
+  }
+}
