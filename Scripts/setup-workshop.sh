@@ -47,5 +47,5 @@ curl -X POST "http://localhost:30002/api/kibana/settings" -H "Content-Type: appl
   }'
 
 # Create medicaid-provider-spending--fraud-workshop data views
-curl -X POST "http://localhost:30002/api/saved_objects/index-pattern/medicaid-fraud-enriched" -H "Content-Type: application/json" -H "kbn-xsrf: true" -u "fraud:hunter" -d '{ "attributes": { "title": "medicaid-fraud-*", "name": "Fraud Workshop", "timeFieldName": "CLAIM_FROM_MONTH"  }}'  
+curl -X POST "http://localhost:30002/api/saved_objects/index-pattern/medicaid-fraud-enriched" -H "Content-Type: application/json" -H "kbn-xsrf: true" -u "fraud:hunter" -d '{ "attributes": { "title": "fraud-medicaid*", "name": "Fraud Workshop", "timeFieldName": "CLAIM_FROM_MONTH", "id": "fraud-medicaid-workshop"  }}'  
   
