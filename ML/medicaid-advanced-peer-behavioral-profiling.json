@@ -1,0 +1,86 @@
+{
+  "description": "Advanced per-specialty peer group behavioral profiling — each provider is modeled and scored against their own taxonomy peer group across multiple fraud signals simultaneously",
+  "analysis_config": {
+    "bucket_span": "30d",
+    "detectors": [
+      {
+        "detector_description": "High total paid vs specialty peers",
+        "function": "high_sum",
+        "field_name": "TOTAL_PAID",
+        "by_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 0
+      },
+      {
+        "detector_description": "High claims count vs specialty peers",
+        "function": "high_sum",
+        "field_name": "TOTAL_CLAIMS",
+        "by_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 1
+      },
+      {
+        "detector_description": "Low unique beneficiaries vs specialty peers (phantom billing signal)",
+        "function": "low_sum",
+        "field_name": "TOTAL_UNIQUE_BENEFICIARIES",
+        "by_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 2
+      },
+      {
+        "detector_description": "High mean payment per record vs specialty peers (upcoding signal)",
+        "function": "high_mean",
+        "field_name": "TOTAL_PAID",
+        "by_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 3
+      },
+      {
+        "detector_description": "Unusual non-zero billing NPI count (billing mill signal)",
+        "function": "high_count",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "partition_field_name": "SERVICING_PROVIDER_NPI_NUM",
+        "detector_index": 4
+      },
+      {
+        "detector_description": "High distinct HCPCS per provider vs peers (unbundling signal)",
+        "function": "high_count",
+        "by_field_name": "Healthcare_Provider_Taxonomy_Code_1",
+        "over_field_name": "BILLING_PROVIDER_NPI_NUM",
+        "detector_index": 5
+      }
+    ],
+    "influencers": [
+      "BILLING_PROVIDER_NPI_NUM",
+      "SERVICING_PROVIDER_NPI_NUM",
+      "Healthcare_Provider_Taxonomy_Code_1",
+      "HCPCS_CODE",
+      "Provider_Business_Practice_Location_Address_State_Name",
+      "Entity_Type_Code"
+    ],
+    "model_prune_window": "60d"
+  },
+  "analysis_limits": {
+    "model_memory_limit": "1gb",
+    "categorization_examples_limit": 4
+  },
+  "data_description": {
+    "time_field": "CLAIM_FROM_MONTH",
+    "time_format": "epoch_ms"
+  },
+  "model_plot_config": {
+    "enabled": true,
+    "annotations_enabled": true
+  },
+  "renormalization_window_days": 90,
+  "results_retention_days": 180,
+  "model_snapshot_retention_days": 10,
+  "daily_model_snapshot_retention_after_days": 1,
+  "custom_settings": {
+    "job_tags": {
+      "workshop": "medicaid-fraud",
+      "module": "advanced-peer-profiling"
+    },
+    "created_by": "medicaid-fraud-workshop"
+  }
+}
