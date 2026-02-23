@@ -50,11 +50,11 @@ curl -X POST "http://localhost:30002/api/kibana/settings" -H "Content-Type: appl
 curl -X POST "http://localhost:30002/api/saved_objects/index-pattern/medicaid-fraud-enriched" -H "Content-Type: application/json" -H "kbn-xsrf: true" -u "fraud:hunter" -d '{ "attributes": { "title": "fraud-medicaid*", "name": "Fraud Workshop", "timeFieldName": "CLAIM_FROM_MONTH", "id": "fraud-medicaid-workshop"  }}'  
   
 # Create ML jobs
-curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-provider-population-analysis" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/medicaid-provider-population-analysis.json
-curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-advanced-peer-behavioral-profiling" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/medicaid-advanced-peer-behavioral-profiling.json
-curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-rare-billing-patterns" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/medicaid-rare-billing-patterns.json
+curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-provider-population-analysis" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/medicaid-provider-population-analysis.json
+curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-advanced-peer-behavioral-profiling" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/medicaid-advanced-peer-behavioral-profiling.json
+curl -X PUT "http://localhost:30920/_ml/anomaly_detectors/medicaid-rare-billing-patterns" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/medicaid-rare-billing-patterns.json
 
 # Create the ML job datafeeds
-curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-provider-population-analysis" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/datafeed-medicaid-provider-population-analysis.json
-curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-are-billing-patterns" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/datafeed-medicaid-are-billing-patterns.json
-curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-advanced-peer-behavioral-profiling" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/datafeed-medicaid-advanced-peer-behavioral-profiling.json
+curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-provider-population-analysis" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/datafeed-medicaid-provider-population-analysis.json
+curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-are-billing-patterns" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/datafeed-medicaid-are-billing-patterns.json
+curl -X PUT "http://localhost:30920/_ml/datafeeds/datafeed-medicaid-advanced-peer-behavioral-profiling" -H "Content-Type: application/json" -u "fraud:hunter" -d @/root/medicaid-provider-spending--fraud-workshop/ML/datafeed-medicaid-advanced-peer-behavioral-profiling.json
