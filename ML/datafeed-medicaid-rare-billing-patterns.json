@@ -1,6 +1,6 @@
 {
   "job_id": "medicaid-rare-billing-patterns",
-  "indices": ["medicaid-fraud-enriched"],
+  "indices": ["fraud-medicaid-spending"],
   "query": {
     "bool": {
       "filter": [
