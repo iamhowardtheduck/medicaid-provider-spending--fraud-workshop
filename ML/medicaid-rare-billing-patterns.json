@@ -41,7 +41,7 @@
     ]
   },
   "analysis_limits": {
-    "model_memory_limit": "768mb"
+    "model_memory_limit": "512mb"
   },
   "data_description": {
     "time_field": "CLAIM_FROM_MONTH",
