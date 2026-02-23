@@ -61,7 +61,7 @@
     "model_prune_window": "60d"
   },
   "analysis_limits": {
-    "model_memory_limit": "1gb",
+    "model_memory_limit": "1.3gb",
     "categorization_examples_limit": 4
   },
   "data_description": {
